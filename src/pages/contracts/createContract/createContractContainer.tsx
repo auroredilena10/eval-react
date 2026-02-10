@@ -4,6 +4,17 @@ import CreateContract from "./createContract";
 import { useNavigate } from "react-router-dom";
 
 
+/**
+ * CreateContractContainer
+ *
+ * Handles the form state and submission to create a new contract,
+ * then navigates back on success. Passes state and handlers to the
+ * presentational `CreateContract` component.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
+
 export default function CreateContractContainer() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");

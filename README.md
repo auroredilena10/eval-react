@@ -1,73 +1,266 @@
-# React + TypeScript + Vite
+# Witcher Board — React + Vite (Exam Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was built for an evaluation. The goal is to implement the requested features **only** (no extra features) while respecting:
+- the **given subject requirements**
+- the **React competency grid**
+- the **imposed project architecture** (no renaming of existing folders/files, separation of responsibilities)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 1) What the app does
 
-## React Compiler
+The application manages **Witcher contracts**:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- List contracts with minimal styling and status-based visuals
+- Filter contracts (title + status)
+- View contract details (including assigned witcher when relevant)
+- Create a new contract (title/description/reward only)
+- Edit an existing contract (title/description/reward only)
+- “Login” as a witcher (not real auth): select an existing witcher and keep it during navigation (tab lifetime)
+- From contract details:
+  - assign an available contract to the current witcher
+  - complete an assigned contract if it belongs to the current witcher
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 2) Tech stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React (with Vite)
+- React Router DOM
+- Fetch API for HTTP calls
+- CSS Modules (no Bootstrap/Tailwind, per exam rules)
+- sessionStorage for tab-lifetime “authentication”
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 3) How to run the project
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
+- Node.js installed
+- The API server running at: `http://localhost:3000/api`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Install & start
+```bash
+npm install
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+_____________________
+
+
+
+Environment
+
+In .env:
+
+VITE_API_URL=http://localhost:3000/api
+
+
+Routes
+Route	Page	Purpose
+/	Home	Entry page with navigation
+/contracts	ContractsContainer → Contracts	List + filters + navigation
+/contracts/details/:id	DetailsContractContainer → DetailsContract	Contract details + actions
+/contracts/create	CreateContractContainer → CreateContract	Create contract (POST)
+/contracts/edit/:id	EditContractContainer → EditContract	Edit contract (GET prefill + PUT)
+/login	LoginWitcherContainer → LoginWitcher	Select a witcher (GET /witchers)
+
+
+Architecture & separation of responsibilities
+
+The project follows a Container / UI pattern to keep responsibilities clean:
+
+Containers (logic + state + side effects)
+
+Fetch data with useEffect
+
+Hold state with useState
+
+Handle API calls (GET/POST/PUT)
+
+Handle navigation (useNavigate)
+
+Pass data + handlers to UI components via props
+
+Examples:
+
+ContractsContainer
+
+DetailsContractContainer
+
+CreateContractContainer
+
+EditContractContainer
+
+LoginWitcherContainer
+
+UI Components (render only)
+
+Receive props
+
+Render HTML/JSX
+
+Bind DOM events to provided handlers
+
+Apply CSS Modules
+
+Examples:
+
+Contracts
+
+DetailsContract
+
+CreateContract
+
+EditContract
+
+LoginWitcher
+
+✅ This mapping is aligned with competency expectations: state management, unidirectional data flow, componentization, clean separation of concerns.
+
+
+
+API layer (src/lib/api.ts)
+
+All HTTP calls are centralized in api.ts to:
+
+avoid duplication
+
+keep components focused on UI/logic
+
+make endpoints easier to maintain
+
+Contracts endpoints used:
+
+GET /contracts
+
+GET /contracts/:id
+
+POST /contracts
+
+PUT /contracts/:id
+
+PUT /contracts/:id/assignedTo
+⚠ Swagger expects the payload to be only the witcher id in the request body.
+
+PUT /contracts/:id/status
+⚠ Swagger expects the payload to be only the status string (e.g. "Completed").
+
+Witchers endpoints used:
+
+GET /witchers
+
+GET /witchers/:id
+
+
+
+“Authentication” as a witcher (Exam Step 7)
+Requirement
+
+The subject requires that the chosen witcher identity is kept:
+
+during navigation
+
+until the browser tab is closed
+
+Implementation choice
+
+✅ sessionStorage is used because it matches the requirement exactly.
+
+Storage helper
+
+A small helper was created to centralize storage access:
+
+src/lib/authWitcher.ts
+
+setCurrentWitcher({ id, name })
+
+getCurrentWitcher()
+
+clearCurrentWitcher() (optional utility)
+
+This avoids repeating sessionStorage logic everywhere and keeps code readable.
+
+
+
+UI “Current Witcher” display (Exam Step 7.2)
+
+The current witcher name must be visible on every page.
+
+Solution:
+
+A reusable UI component is displayed at the top of each page:
+
+Shows current witcher name if selected
+
+Otherwise shows “No witcher selected”
+
+Provides a link to the login page
+
+This respects unidirectional flow and avoids global frameworks (Redux, etc.) which are not required for the exam.
+
+
+
+Contract details actions (Exam Step 7.3)
+
+On the contract details page:
+
+Assign button
+
+Shown only if:
+
+contract status is "Available"
+
+and a witcher is selected
+
+Action:
+
+PUT /contracts/:id/assignedTo
+
+payload: witcherId only
+
+Complete button
+
+Shown only if:
+
+contract status is "Assigned"
+
+and the assignedTo witcher matches the current witcher
+
+Action:
+
+PUT /contracts/:id/status
+
+payload: "Completed" only
+
+After success:
+
+the contract is refetched to refresh UI state
+
+
+
+
+Commit message style (required by subject)
+
+Commits should be descriptive and tied to exam steps.
+
+Examples:
+
+feat(contracts): display contract list with status cards
+
+feat(filters): add title and status filters to contracts list
+
+feat(details): add contract details page with witcher fetch
+
+feat(create): add create contract form and POST
+
+feat(edit): add edit contract form prefilled with GET and PUT
+
+feat(auth): add witcher login with sessionStorage
+
+feat(assign): allow assigning available contract to current witcher
+
+feat(status): allow completing assigned contract for current witcher
+
+style(ui): add minimal CSS modules for pages
+

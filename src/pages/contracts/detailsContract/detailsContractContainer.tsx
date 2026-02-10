@@ -3,10 +3,20 @@ import { useEffect, useState } from "react";
 import { contract, witcher } from "@/lib/api";
 import DetailsContract from "./detailsContract";
 import { getCurrentWitcher } from "@/lib/authWitcher";
-import CurrentWitcherBar from "@/components/currentWitcherBar";
 
-<CurrentWitcherBar />
-
+/**
+ * DetailsContractContainer
+ *
+ * Fetches and displays a contract’s details by URL `id`, along with the assigned witcher (if any).
+ * Exposes actions to assign the current witcher and to mark the contract as completed.
+ *
+ * Data flow:
+ * - Loads contract on mount/id change; conditionally loads witcher if needed.
+ * - Handles optimistic-like refresh after actions by refetching the contract.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 export default function DetailsContractContainer() {
   const { id } = useParams(); // Récupère l'ID du contrat depuis l'URL
 

@@ -3,6 +3,17 @@ import { getCurrentWitcher, clearCurrentWitcher } from "@/lib/authWitcher";
 import { Button } from "@/components/ui/button/button";
 import { useState } from "react";
 
+/**
+ * CurrentWitcherBar
+ *
+ * Displays the currently connected witcher and a context-aware action:
+ * - Shows “Login” when no witcher is selected.
+ * - Shows “Logout” when a witcher is selected, and clears the session on click.
+ *
+ * @component
+ * @returns {JSX.Element} A small top bar with current status and login/logout action.
+ */
+
 export default function CurrentWitcherBar() {
   // Tiny state bump to force a re-render after logout
   const [tick, setTick] = useState(0);

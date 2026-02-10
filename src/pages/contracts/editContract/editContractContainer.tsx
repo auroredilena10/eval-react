@@ -3,6 +3,20 @@ import { contract } from "@/lib/api";
 import EditContract from "./editContract";
 import { useNavigate, useParams } from "react-router-dom";
 
+
+/**
+ * EditContractContainer
+ *
+ * Loads an existing contract by URL `id`, pre-fills the edit form,
+ * and submits updates to the API. Navigates back on success.
+ *
+ * Data flow:
+ * - On mount/id change: fetches contract and seeds local form state.
+ * - On submit: updates the contract and handles loading/error states.
+ *
+ * @component
+ * @returns {JSX.Element}
+ */
 export default function EditContractContainer() {
   const { id } = useParams();
   const navigate = useNavigate();
