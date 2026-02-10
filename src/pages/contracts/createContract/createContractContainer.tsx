@@ -1,7 +1,5 @@
-import { useParams } from "react-router";
-import { useEffect, useState } from "react";
-import { contract, witcher } from "@/lib/api";
-import DetailsContract from "./createContract";
+import { useState } from "react";
+import { contract } from "@/lib/api";
 import CreateContract from "./createContract";
 
 export default function CreateContractContainer() {

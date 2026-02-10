@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import styles from "./contracts.module.css";
 import { Button } from "@/components/ui/button/button";
 
@@ -11,7 +11,6 @@ export default function Contracts({
   onTitleChange,
   onStatusChange,
 }) {
-
 
   // Mapping status -> CSS class
   const statusClassMap = {
@@ -72,7 +71,7 @@ export default function Contracts({
             <Link to={"/contracts/details/" + contract.id} key={contract.id} className={`${styles.contractCard} ${statusClass}`}>
               <h3>{contract.title}</h3>
               <p>{contract.description}</p>
-              <p>{contract.status}</p>
+              <p>Statut : {contract.status}</p>
             </Link>
           );
         })}

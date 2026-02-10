@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./detailsContract.module.css";
+import { Button } from "@/components/ui/button/button";
 
 export default function DetailsContract({
   contractData,
@@ -33,7 +34,7 @@ export default function DetailsContract({
 
       <div className={styles.card}>
         <div className={styles.row}>
-          <span className={styles.label}>Title</span>
+          <span className={styles.label}>Title </span>
           <span className={styles.value}>{contractData.title}</span>
         </div>
 
@@ -60,6 +61,12 @@ export default function DetailsContract({
             </span>
           </div>
         )}
+        <Link to={`/contracts/edit/${contractData.id}`}>
+          <br></br>
+          <Button>
+            Edit this contract
+          </Button>
+        </Link>
       </div>
     </div>
   );

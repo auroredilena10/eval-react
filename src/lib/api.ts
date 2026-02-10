@@ -28,7 +28,7 @@ export const contract = {
     return response.json();
   },
   // Fetch contract details by ID
-  getById: async (id: string) => {
+    getById: async (id: string) => {
     const response = await fetch(`${API_URL}/contracts/${id}/`, {
       method: "GET",
       headers: {
@@ -43,7 +43,11 @@ export const contract = {
     return response.json();
   },
   //Create contract
-    create: async (payload: { title: string; description: string; reward: string }) => {
+    create: async (payload: { 
+      title: string; 
+      description: string; 
+      reward: string }
+    ) => {
     const response = await fetch(`${API_URL}/contracts`, {
       method: "POST",
       headers: {
@@ -56,7 +60,24 @@ export const contract = {
     }
     return response.json();
   },
-
+  //Edit contract
+    edit: async ( id: string, payload: { 
+        title?: string; 
+        description?: string; 
+        reward?: string }
+      ) => {
+    const response = await fetch(`${API_URL}/contracts/${id}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to edit contract");
+    }
+    return response.json();
+  },
 };
 
 export const witcher = {
