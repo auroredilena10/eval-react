@@ -56,7 +56,7 @@ In .env:
 VITE_API_URL=http://localhost:3000/api
 
 
-Routes
+4) Routes
 Route	Page	Purpose
 /	Home	Entry page with navigation
 /contracts	ContractsContainer → Contracts	List + filters + navigation
@@ -64,9 +64,7 @@ Route	Page	Purpose
 /contracts/create	CreateContractContainer → CreateContract	Create contract (POST)
 /contracts/edit/:id	EditContractContainer → EditContract	Edit contract (GET prefill + PUT)
 /login	LoginWitcherContainer → LoginWitcher	Select a witcher (GET /witchers)
-
-
-Architecture & separation of responsibilities
+5) Architecture & separation of responsibilities
 
 The project follows a Container / UI pattern to keep responsibilities clean:
 
@@ -118,9 +116,7 @@ LoginWitcher
 
 ✅ This mapping is aligned with competency expectations: state management, unidirectional data flow, componentization, clean separation of concerns.
 
-
-
-API layer (src/lib/api.ts)
+6) API layer (src/lib/api.ts)
 
 All HTTP calls are centralized in api.ts to:
 
@@ -152,9 +148,7 @@ GET /witchers
 
 GET /witchers/:id
 
-
-
-“Authentication” as a witcher (Exam Step 7)
+7) “Authentication” as a witcher (Exam Step 7)
 Requirement
 
 The subject requires that the chosen witcher identity is kept:
@@ -181,9 +175,7 @@ clearCurrentWitcher() (optional utility)
 
 This avoids repeating sessionStorage logic everywhere and keeps code readable.
 
-
-
-UI “Current Witcher” display (Exam Step 7.2)
+8) UI “Current Witcher” display (Exam Step 7.2)
 
 The current witcher name must be visible on every page.
 
@@ -199,9 +191,7 @@ Provides a link to the login page
 
 This respects unidirectional flow and avoids global frameworks (Redux, etc.) which are not required for the exam.
 
-
-
-Contract details actions (Exam Step 7.3)
+9) Contract details actions (Exam Step 7.3)
 
 On the contract details page:
 
@@ -236,31 +226,3 @@ payload: "Completed" only
 After success:
 
 the contract is refetched to refresh UI state
-
-
-
-
-Commit message style (required by subject)
-
-Commits should be descriptive and tied to exam steps.
-
-Examples:
-
-feat(contracts): display contract list with status cards
-
-feat(filters): add title and status filters to contracts list
-
-feat(details): add contract details page with witcher fetch
-
-feat(create): add create contract form and POST
-
-feat(edit): add edit contract form prefilled with GET and PUT
-
-feat(auth): add witcher login with sessionStorage
-
-feat(assign): allow assigning available contract to current witcher
-
-feat(status): allow completing assigned contract for current witcher
-
-style(ui): add minimal CSS modules for pages
-
