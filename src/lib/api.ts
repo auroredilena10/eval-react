@@ -27,7 +27,6 @@ export const contract = {
 
     return response.json();
   },
-
   // Fetch contract details by ID
   getById: async (id: string) => {
     const response = await fetch(`${API_URL}/contracts/${id}/`, {
@@ -38,11 +37,25 @@ export const contract = {
     }); 
 
     if (!response.ok) {
-      throw new Error("Failed to fetch contracts");
+      throw new Error("Failed to fetch contract details");
     }
 
     return response.json();
-  }
+  },
+  //Create contract
+    create: async (payload: { title: string; description: string; reward: string }) => {
+    const response = await fetch(`${API_URL}/contracts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to create contract");
+    }
+    return response.json();
+  },
 
 };
 
@@ -57,7 +70,7 @@ export const witcher = {
     });
     
     if (!response.ok) {
-      throw new Error("Failed to fetch contracts");
+      throw new Error("Failed to fetch witcher details");
     }
 
     return response.json();

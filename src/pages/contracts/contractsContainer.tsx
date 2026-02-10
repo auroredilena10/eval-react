@@ -17,7 +17,7 @@ export default function ContractsContainer() {
         //query parameters based on filters
         const data = await contract.getAll({ title, status });
         setContracts(data);
-      } catch {
+      } catch (error){
         setError("Error while fetching contracts");
       } finally {
         setIsLoading(false);

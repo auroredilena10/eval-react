@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import styles from "./contracts.module.css";
+import { Button } from "@/components/ui/button/button";
 
 export default function Contracts({
   contracts,
@@ -26,7 +27,7 @@ export default function Contracts({
       {/* Filters */}
       <div className={styles.filters}>
         <div className={styles.filterField}>
-          <label className={styles.filterLabel}>Titre</label>
+          <label className={styles.filterLabel}>Title</label>
           <input className={styles.filterInput} value={title} onChange={onTitleChange} />
         </div>
 
@@ -38,6 +39,14 @@ export default function Contracts({
             <option value="Assigned">Assigned</option>
             <option value="Completed">Completed</option>
           </select>
+        </div>
+
+        <div>
+          <Link to="/contracts/create">
+            <Button>
+              Create contract
+            </Button>
+          </Link>
         </div>
       </div>
 

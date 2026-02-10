@@ -29,7 +29,7 @@ export default function DetailsContractContainer() {
         } else {
           setWitcherData(null);
         }
-      } catch {
+      } catch (error){
         setError("Error while fetching contracts");
       } finally {
         setIsLoading(false);

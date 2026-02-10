@@ -9,7 +9,7 @@ export default function Home() {
 
       <Link to="/contracts">
         <Button>
-          Voir les contrats
+          View contracts
         </Button>
       </Link>
     </div>
