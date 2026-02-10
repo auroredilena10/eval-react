@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import styles from "./contracts.module.css";
 
 export default function Contracts({
@@ -57,16 +58,13 @@ export default function Contracts({
           if (!contracts || contracts.length === 0) {
             return <p>No contracts found.</p>;
           }
-          
+
           return (
-              <div
-                key={contract.id}
-                className={`${styles.contractCard} ${statusClass}`}
-              >
-                <h3>{contract.title}</h3>
-                <p>{contract.description}</p>
-                <p>{contract.status}</p>
-              </div>
+            <Link to={"/contracts/details/" + contract.id} key={contract.id} className={`${styles.contractCard} ${statusClass}`}>
+              <h3>{contract.title}</h3>
+              <p>{contract.description}</p>
+              <p>{contract.status}</p>
+            </Link>
           );
         })}
       </div>

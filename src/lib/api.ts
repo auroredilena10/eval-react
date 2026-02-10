@@ -2,7 +2,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const contract = {
-// Fetch all contracts or filtered by title and/or status
+  // Fetch all contracts or filtered by title and/or status
   getAll: async (filters?: { title?: string; status?: string; }) => {
     const params = new URLSearchParams();
     
@@ -28,5 +28,38 @@ export const contract = {
     return response.json();
   },
 
+  // Fetch contract details by ID
+  getById: async (id: string) => {
+    const response = await fetch(`${API_URL}/contracts/${id}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }); 
 
+    if (!response.ok) {
+      throw new Error("Failed to fetch contracts");
+    }
+
+    return response.json();
+  }
+
+};
+
+export const witcher = {
+// Fetch witcher details by ID
+  getById: async (id: string) => {
+    const response = await fetch(`${API_URL}/witchers/${id}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch contracts");
+    }
+
+    return response.json();
+  }
 };
