@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { contract } from "@/lib/api";
 import CreateContract from "./createContract";
+import { useNavigate } from "react-router-dom";
+
 
 export default function CreateContractContainer() {
     const [title, setTitle] = useState("");
@@ -9,6 +11,8 @@ export default function CreateContractContainer() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +27,8 @@ export default function CreateContractContainer() {
         reward,
         });
 
-        //navigate("/contracts");
+        // Go back to previous page after success
+        navigate(-1);
     } catch (error) {
         setError("Error while creating contract");
     } finally {

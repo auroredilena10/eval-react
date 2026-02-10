@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./contracts.module.css";
 import { Button } from "@/components/ui/button/button";
+import CurrentWitcherBar from "@/components/currentWitcherBar";
+
+<CurrentWitcherBar />
 
 export default function Contracts({
   contracts,
@@ -21,6 +24,7 @@ export default function Contracts({
 
   return (
     <div className={styles.contractsPage}>
+      <CurrentWitcherBar />
       <h1>Contracts</h1>
 
       {/* Filters */}

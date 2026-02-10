@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./createContract.module.css";
 import { Button } from "@/components/ui/button/button";
+import CurrentWitcherBar from "@/components/currentWitcherBar";
 
 export default function CreateContract({
     title,
@@ -23,6 +24,7 @@ export default function CreateContract({
 
   return (
     <div className={styles.page}>
+      <CurrentWitcherBar />
       <div className={styles.header}>
         <h1 className={styles.title}>Create Contract</h1>
         <Link className={styles.backLink} to="/contracts">

@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
 import styles from "./detailsContract.module.css";
 import { Button } from "@/components/ui/button/button";
+import CurrentWitcherBar from "@/components/currentWitcherBar";
+
+<CurrentWitcherBar />
 
 export default function DetailsContract({
   contractData,
   witcherData,
   isLoading,
   error,
+  currentWitcher,
+  onAssign,
+  onComplete,
 }) {
   if (isLoading) {
     return <p className={styles.message}>Loading contract details...</p>;
@@ -23,8 +29,17 @@ export default function DetailsContract({
   const status = contractData.status?.toLowerCase();
   const showWitcher = status === "assigned" || status === "completed";
 
+  const currentId = currentWitcher?.id;
+  const contractStatus = contractData.status?.toLowerCase();
+
+  const canAssign = contractStatus === "available" && !!currentId;
+
+  const canComplete = contractStatus === "assigned" && !!currentId && String(contractData.assignedTo) === String(currentId);
+
+
   return (
     <div className={styles.page}>
+      <CurrentWitcherBar />
       <div className={styles.header}>
         <h1 className={styles.title}>Contract Details</h1>
         <Link className={styles.backLink} to="/contracts">
@@ -61,6 +76,20 @@ export default function DetailsContract({
             </span>
           </div>
         )}
+
+        {canAssign && (
+          <Button type="button" onClick={onAssign}>
+            Assign to me
+          </Button>
+        )}
+
+        {canComplete && (
+          <Button type="button" onClick={onComplete}>
+            Complete contract
+          </Button>
+        )}
+
+
         <Link to={`/contracts/edit/${contractData.id}`}>
           <br></br>
           <Button>

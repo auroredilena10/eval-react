@@ -20,11 +20,9 @@ export const contract = {
         "Content-Type": "application/json",
       },
     });
-
     if (!response.ok) {
       throw new Error("Failed to fetch contracts");
     }
-
     return response.json();
   },
   // Fetch contract details by ID
@@ -35,11 +33,9 @@ export const contract = {
         "Content-Type": "application/json",
       },
     }); 
-
     if (!response.ok) {
       throw new Error("Failed to fetch contract details");
     }
-
     return response.json();
   },
   //Create contract
@@ -78,9 +74,42 @@ export const contract = {
     }
     return response.json();
   },
+  // Witcher assignment to contract
+  assignTo: async (contractId: string, witcherId: string) => {
+    const response = await fetch(`${API_URL}/contracts/${contractId}/assignedTo`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(witcherId),
+    });
+    if (!response.ok) throw new Error("Failed to assign contract");
+    return response.json();
+  },
+  // Change contract status to Completed
+  setStatus: async (id: string, status: "Completed") => {
+    const response = await fetch(`${API_URL}/contracts/${id}/status`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(status),
+    });
+    if (!response.ok) throw new Error("Failed to update contract status");
+    return response.json();
+  },
 };
 
 export const witcher = {
+// Fetch all witchers
+  getAll: async () => {
+    const response = await fetch(`${API_URL}/witchers/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+    }); 
+    if (!response.ok) {
+      throw new Error("Failed to fetch contracts");
+    }
+    return response.json();
+  },
 // Fetch witcher details by ID
   getById: async (id: string) => {
     const response = await fetch(`${API_URL}/witchers/${id}/`, {
@@ -88,12 +117,10 @@ export const witcher = {
       headers: {
         "Content-Type": "application/json",
       },
-    });
-    
+    }); 
     if (!response.ok) {
-      throw new Error("Failed to fetch witcher details");
+      throw new Error("Failed to fetch contract");
     }
-
     return response.json();
-  }
+  },
 };

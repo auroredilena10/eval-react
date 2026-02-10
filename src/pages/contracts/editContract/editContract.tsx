@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./editContract.module.css";
 import { Button } from "@/components/ui/button/button";
+import CurrentWitcherBar from "@/components/currentWitcherBar";
+
+<CurrentWitcherBar />
 
 export default function EditContract({
     title,
@@ -23,6 +26,7 @@ export default function EditContract({
 
   return (
     <div className={styles.page}>
+      <CurrentWitcherBar />
       <div className={styles.header}>
         <h1 className={styles.title}>Edit Contract</h1>
         <Link className={styles.backLink} to="/contracts">
