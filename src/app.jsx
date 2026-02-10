@@ -1,20 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
-import { Home } from './pages/home/home';
-import NotFound from './pages/not-found';
-import Loading from './pages/loading';
+import Home from '@/pages/home/home';
+import ContractsContainer from '@/pages/contracts/contractsContainer';
 
 const App = () => {
   return (
-      <BrowserRouter>
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/contracts" element={<ContractsContainer />} />
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 

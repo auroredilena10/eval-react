@@ -1,0 +1,28 @@
+/* Container for the contracts page */
+.contractsPage {
+  padding: 16px;
+}
+
+/* contract card */
+.contractCard {
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+/* Status styles */
+.contractAvailable {
+  background-color: #bdefcb; 
+}
+
+.contractAssigned {
+  background-color: #f7d7aa; 
+}
+
+.contractCompleted {
+  background-color: #afbaf3; 
+}
+
+h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
