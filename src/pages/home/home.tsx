@@ -1,16 +1,19 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { DataTable } from "@/components/ui/data-table"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Input } from "@/components/ui/input"
-
-import { useDebounce } from "@/lib/useDebounce"
-
-import { useEffect , useState } from "react"
-import { toast } from "sonner"
+import { Button } from "@/components/ui/button/button"
+import { Link } from "react-router-dom"
 
 
-function Home() {
-  
+export function Home() {
+  return (
+    <div>
+      <h1>Witcher Board</h1>
+
+      <Link to="/contracts">
+        <Button>
+          Voir les contrats
+        </Button>
+      </Link>
+    </div>
+  )
 }
 
 export default Home
