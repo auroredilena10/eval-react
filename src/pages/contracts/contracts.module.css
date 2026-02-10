@@ -1,28 +1,77 @@
-/* Container for the contracts page */
+/* Page */
 .contractsPage {
   padding: 16px;
+  font-family: Arial, sans-serif;
 }
 
-/* contract card */
+/* Filters */
+.filters {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin: 12px 0 16px;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.filterField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 220px;
+}
+
+.filterLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.filterInput,
+.filterSelect {
+  padding: 8px 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* Cards layout (cards "à la ligne") */
+.cardsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Card */
 .contractCard {
+  width: calc(25% - 9px); /* ~4 per row */
   padding: 12px;
-  margin-bottom: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Status styles */
+.contractCard h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.contractCard p {
+  margin: 6px 0;
+}
+
+/* Status styles (minimal difference) */
 .contractAvailable {
-  background-color: #bdefcb; 
+  border-left: 6px solid #2e9b4f;
 }
 
 .contractAssigned {
-  background-color: #f7d7aa; 
+  border-left: 6px solid #c07a1a;
 }
 
 .contractCompleted {
-  background-color: #afbaf3; 
-}
-
-h3 {
-    font-size: 1.2rem;
-    font-weight: bold;
+  border-left: 6px solid #2b4bb8;
 }

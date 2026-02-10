@@ -4,18 +4,12 @@ export default function Contracts({
   contracts,
   isLoading,
   error,
+  title,
+  status,
+  onTitleChange,
+  onStatusChange,
 }) {
-  if (isLoading) {
-    return <p>Loading contracts...</p>;
-  }
 
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  if (!contracts || contracts.length === 0) {
-    return <p>No contracts found.</p>;
-  }
 
   // Mapping status -> CSS class
   const statusClassMap = {
@@ -27,21 +21,55 @@ export default function Contracts({
   return (
     <div className={styles.contractsPage}>
       <h1>Contracts</h1>
-      {contracts.map((contract) => {
-        const statusKey = contract.status.toLowerCase();
-        const statusClass = statusClassMap[statusKey]; // Choisi la bonne classe CSS selon le statut
 
-        return (
-          <div
-            key={contract.id}
-            className={`${styles.contractCard} ${statusClass}`}
-          >
-            <h3>{contract.title}</h3>
-            <p>{contract.description}</p>
-            <p>{contract.status}</p>
-          </div>
-        );
-      })}
+      {/* Filters */}
+      <div className={styles.filters}>
+        <div className={styles.filterField}>
+          <label className={styles.filterLabel}>Titre</label>
+          <input className={styles.filterInput} value={title} onChange={onTitleChange} />
+        </div>
+
+        <div className={styles.filterField}>
+        <label className={styles.filterLabel}>Statut</label>
+          <select className={styles.filterSelect} value={status} onChange={onStatusChange}>
+            <option value="">All</option>
+            <option value="Available">Available</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
+
+      {/* List */}
+      <div className={styles.cardsGrid}>
+        {contracts.map((contract) => {
+          const statusKey = contract.status.toLowerCase();
+          const statusClass = statusClassMap[statusKey]; //choisi la bonne classe CSS selon le statut
+
+          if (isLoading) {
+            return <p>Loading contracts...</p>;
+          }
+
+          if (error) {
+            return <p>{error}</p>;
+          }
+
+          if (!contracts || contracts.length === 0) {
+            return <p>No contracts found.</p>;
+          }
+          
+          return (
+              <div
+                key={contract.id}
+                className={`${styles.contractCard} ${statusClass}`}
+              >
+                <h3>{contract.title}</h3>
+                <p>{contract.description}</p>
+                <p>{contract.status}</p>
+              </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
