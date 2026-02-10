@@ -24,7 +24,6 @@ export default function DetailsContract({
 
   return (
     <div className={styles.page}>
-      <p> popo</p>
       <div className={styles.header}>
         <h1 className={styles.title}>Contract Details</h1>
         <Link className={styles.backLink} to="/contracts">
@@ -49,18 +48,18 @@ export default function DetailsContract({
         </div>
 
         <div className={styles.row}>
-          {/* <span className={styles.label}>Status</span> */}
-          {/* <span className={styles.value}>{contractData.status}</span> */}
+          <span className={styles.label}>Status</span>
+          <span className={styles.value}>{contractData.status}</span>
         </div>
 
-        {/* {showWitcher && ( */}
+        {showWitcher && (
           <div className={styles.row}>
             <span className={styles.label}>Assigned witcher</span>
             <span className={styles.value}>
               {witcherData ? witcherData.name : "Loading witcher..."}
             </span>
           </div>
-        {/* )} */}
+        )}
       </div>
     </div>
   );

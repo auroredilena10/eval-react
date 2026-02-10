@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '@/pages/home/home';
 import ContractsContainer from '@/pages/contracts/contractsContainer';
-import DetailsContractContainer from '@/pages/contracts/detailsContract/detailsContract';
+import DetailsContractContainer from '@/pages/contracts/detailsContract/detailsContractContainer';
 
 const App = () => {
   return (

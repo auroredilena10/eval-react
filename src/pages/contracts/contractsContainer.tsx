@@ -29,14 +29,16 @@ export default function ContractsContainer() {
 
   return (
     //pass values to ui 
-    <Contracts
-      contracts={contracts}
-      isLoading={isLoading}
-      error={error}
-      title={title}
-      status={status}
-      onTitleChange={(e) => setTitle(e.target.value)}
-      onStatusChange={(e) => setStatus(e.target.value)}
-    />
+    <>
+      <Contracts
+        contracts={contracts}
+        isLoading={isLoading}
+        error={error}
+        title={title}
+        status={status}
+        onTitleChange={(e) => setTitle(e.target.value)}
+        onStatusChange={(e) => setStatus(e.target.value)}
+      />
+    </>
   );
 }
