@@ -40,13 +40,10 @@ The application manages **Witcher contracts**:
 - The API server running at: `http://localhost:3000/api`
 
 ### Install & start
-```bash
 npm install
 npm run dev
 
-
-_____________________
-
+---
 
 
 Environment
